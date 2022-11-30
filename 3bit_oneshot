@@ -1,0 +1,19 @@
+module oneshot_3bit(clk,rst,a,b,c);
+
+input clk,rst;
+input a,b,c;
+reg a_reg,b_reg,c_reg;
+reg a_trig,b_trig,c_trig;
+
+always @(negedge rst or posedge clk) begin
+    if(!rst) begin
+        {a_reg,b_reg,c_reg} <= 3'b000;
+        {a_trig,b_trig,c_trig} <= 3'b000;
+    end
+    else begin
+        {a_reg, b_reg, c_reg} <= {a,b,c};
+        {a_trig, b_trig, c_trig} <= {a,b,c} & {a_reg,b_reg,c_reg};
+    end    
+end
+
+endmodule
